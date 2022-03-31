@@ -1,0 +1,55 @@
+name: publish
+
+# Controls when the action will run.
+on:
+  release:
+    types: [published]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "release"
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          # This is necessary so that we have the tags for dunamai-action@v1
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Assign version number
+        uses: mtkennerly/dunamai-action@v1
+        with:
+          env-var: MY_VERSION
+          args: --style semver
+      - run: echo $MY_VERSION
+
+      - name: Build wheels and source tarball
+        run: |
+          poetry version $MY_VERSION
+          poetry version --short
+          poetry build
+
+      - name: show temporary files
+        run: ls -l
+
+      - name: publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          skip_existing: true
