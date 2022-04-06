@@ -38,9 +38,6 @@ jobs:
       - name: test with tox
         run: tox
 
-      - name: list files
-        run: ls -l .
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
