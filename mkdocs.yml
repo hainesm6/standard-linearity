@@ -50,7 +50,7 @@ plugins:
       lang: en
   - mkdocstrings:
       watch:
-        - standard-linearity
+        - standard_linearity
 extra:
   social:
     - icon: fontawesome/brands/github

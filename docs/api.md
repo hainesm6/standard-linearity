@@ -1,1 +1,1 @@
-::: standard_linearity
+# Not currently implemented

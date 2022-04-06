@@ -11,13 +11,11 @@ A small project to assess the linearity of standard calibration curves
 * GitHub: <https://github.com/hainesm6/standard-linearity>
 * PyPI: <https://pypi.org/project/standard-linearity/>
 * Free software: BSD-3-Clause
+
 ## Installation
 
-Using a python environment running python >= 3.8:
+ToDo
 
-```shell
-$ pip install standard-linearity
-```
 ## Usage
 
 Checkout the [section of the documentation on usage](https://hainesm6.github.io/standard-linearity/usage/)
