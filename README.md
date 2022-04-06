@@ -1,6 +1,5 @@
 # Standard Linearity
 
-[![pypi](https://img.shields.io/pypi/v/standard-linearity.svg)](https://pypi.org/project/standard-linearity/)
 [![python](https://img.shields.io/pypi/pyversions/standard-linearity.svg)](https://pypi.org/project/standard-linearity/)
 [![Build Status](https://github.com/hainesm6/standard-linearity/actions/workflows/push.yml/badge.svg)](https://github.com/hainesm6/standard-linearity/actions/workflows/push.yml)
 [![codecov](https://codecov.io/gh/hainesm6/standard-linearity/branch/main/graphs/badge.svg)](https://codecov.io/github/hainesm6/standard-linearity)
