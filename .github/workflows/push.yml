@@ -36,15 +36,16 @@ jobs:
 
       # Note tox will format, lint and build according to the setup.cfg file.
       - name: test with tox
-        run:
-          tox
+        run: tox
+
+      - name: list files
+        run: ls -l .
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: true
-          files: coverage.xml
-        if: ${{ matrix.python-version == 3.8 && matrix.os == 'ubuntu-latest'}}
+          files: ./coverage.xml
 
   posttest:
     runs-on: ubuntu-latest
