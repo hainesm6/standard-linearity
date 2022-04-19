@@ -9,10 +9,32 @@ from standard_linearity import cli
 
 
 @pytest.fixture
-def example_data():
+def dir_path():
     from pathlib import Path
 
-    path_to_csv = Path.cwd() / "csv_xlsx_files" / "22-03-25_19-01-53_pierce_gfp_standard.CSV"
+    return Path.cwd() / "test_export_data"
+
+
+@pytest.fixture
+def path_to_csv():
+    from pathlib import Path
+
+    return Path.cwd() / "csv_xlsx_files" / "22-03-25_19-01-53_pierce_gfp_standard.CSV"
+
+
+@pytest.fixture
+def example_data(path_to_csv):
+    example_data = sl.import_data(
+        path_to_csv=path_to_csv,
+        standards_colname="Standard Concentrations",
+        response_colname=" Blank corrected based on Raw Data (F: 482-16/525-20)",
+        header=3,
+    )
+    return example_data
+
+
+@pytest.fixture
+def better_data(path_to_csv):
     example_data = sl.import_data(
         path_to_csv=path_to_csv,
         standards_colname="Standard Concentrations",
@@ -35,12 +57,14 @@ def test_dataframe_import(example_data):
     assert len(example_data) == 39
 
 
-def test_export_data(example_data, ols_fit):
+def test_export_data(dir_path, example_data, ols_fit):
     import shutil
     from pathlib import Path
 
-    dir_path = Path.cwd() / "test_export_figs"
-    Path.mkdir(dir_path)
+    try:
+        Path.mkdir(dir_path)
+    except FileExistsError:
+        pass
     global_attrs = {
         "set_xlabel": "concentration (μg/mL)",
     }
@@ -60,16 +84,86 @@ def test_export_data(example_data, ols_fit):
         residual_attrs=residual_attrs,
         errors_attrs=errors_attrs,
     )
-    breakpoint()  # Need to optimise format of subplots in graphs.svg.
+    assert len([file for file in dir_path.iterdir()]) == 3
     shutil.rmtree(dir_path)
 
 
-def test_command_line_interface():
+def test_cli_help():
     """Test the CLI."""
     runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'standard-linearity' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert 'Show this message and exit.' in help_result.output
+
+
+def test_cli_ols(dir_path, path_to_csv):
+    import shutil
+    from pathlib import Path
+
+    try:
+        Path.mkdir(dir_path)
+    except FileExistsError:
+        pass
+
+    try:
+        runner = CliRunner()
+        result = runner.invoke(
+            cli.main,
+            [
+                "-o",
+                f"{dir_path}",
+                "-p",
+                "./json_files/test-plot-config.json",
+                "-h",
+                3,
+                "-r",
+                " Blank corrected based on Raw Data (F: 482-16/525-20)",
+                "-s",
+                "Standard Concentrations",
+                f"{path_to_csv}",
+            ],
+        )
+        print(result.output)
+        assert result.exit_code == 0
+        assert len([file for file in dir_path.iterdir()]) == 3
+    finally:
+        shutil.rmtree(dir_path)
+
+
+def test_cli_wls(dir_path, path_to_csv):
+    import shutil
+    from pathlib import Path
+
+    try:
+        Path.mkdir(dir_path)
+    except FileExistsError:
+        pass
+    try:
+        runner = CliRunner()
+        result = runner.invoke(
+            cli.main,
+            [
+                "-f",
+                "WLS",
+                "-h",
+                3,
+                "-n",
+                30,
+                "-o",
+                "./test_export_data",
+                "-p",
+                "./json_files/test-plot-config.json",
+                "-r",
+                " Blank corrected based on Raw Data (F: 482-16/525-20)",
+                "--skip-rows",
+                3,
+                "-s",
+                "Standard Concentrations",
+                f"{path_to_csv}",
+            ],
+        )
+        print(result.output)
+        assert result.exit_code == 0
+        assert len([file for file in dir_path.iterdir()]) == 3
+    finally:
+        shutil.rmtree(dir_path)
