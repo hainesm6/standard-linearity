@@ -356,8 +356,8 @@
                   <h1>Usage</h1>
                 
                 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<p>To use Standard Linearity in a project</p>
-<div class="highlight"><pre><span></span><code>import standard_linearity
+<p>Here's an example of using <code>standard-linearity</code> on the command line to iterate through a collection of csv files in a directory. The name of the output directory is dynamically created:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="k">for</span> f <span class="k">in</span> ./*<span class="p">;</span> <span class="k">do</span> <span class="nv">fbase</span><span class="o">=</span><span class="k">$(</span>basename -s .CSV <span class="nv">$f</span><span class="k">)</span><span class="p">;</span> standard-linearity -f WLS -h <span class="m">3</span> -n <span class="m">27</span> -o <span class="nv">$fbase</span> -p <span class="o">[</span>path-to-config-file<span class="o">]</span> -r <span class="s2">&quot; Blank corrected based on Raw Data (F: 482-16/525-20)&quot;</span> --skip-rows <span class="m">3</span> -s <span class="s2">&quot;Standard Concentrations&quot;</span> <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span>
 </code></pre></div>
                 
               
