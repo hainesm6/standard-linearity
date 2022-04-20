@@ -1,0 +1,15 @@
+{
+    "calibration_attrs": {
+        "set_ylabel": "fluorescence (AU)"
+    },
+    "residual_attrs": {
+        "set_xscale": "log"
+    },
+    "errors_attrs": {
+        "set_xscale": "log"
+    },
+    "global_attrs": {
+        "set_xlabel": "concentration (μg/mL)"
+    },
+    "figure_attrs": {}
+}
