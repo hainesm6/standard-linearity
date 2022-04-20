@@ -12,11 +12,11 @@ A small project to assess the linearity of standard calibration curves
 
 ## Installation
 
-standard-linearity is not available via PyPi so please install from source. Refer to the [documentation]((https://hainesm6.github.io/standard-linearity/installation/)) for further instructions
+standard-linearity is not available via PyPi so please install from source. Refer to the [documentation](https://hainesm6.github.io/standard-linearity/installation/) for further instructions.
 
 ## Usage
 
-Checkout the [section of the documentation on usage](https://hainesm6.github.io/standard-linearity/usage/)
+Checkout the [section of the documentation on usage](https://hainesm6.github.io/standard-linearity/usage/).
 
 ## Contributing
 
