@@ -8,7 +8,6 @@ A small project to assess the linearity of standard calibration curves
 
 * Documentation: <https://hainesm6.github.io/standard-linearity>
 * GitHub: <https://github.com/hainesm6/standard-linearity>
-* PyPI: <https://pypi.org/project/standard-linearity/>
 * Free software: BSD-3-Clause
 
 ## Installation
