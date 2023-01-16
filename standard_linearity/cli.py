@@ -122,3 +122,7 @@ def main(
         global_attrs=plot_config["global_attrs"],
         figure_attrs=plot_config["figure_attrs"],
     )
+
+
+if __name__ == "__main__":
+    main(auto_envvar_prefix="STANDLINE")
